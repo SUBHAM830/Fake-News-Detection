@@ -2,7 +2,7 @@ from flask import Flask,escape,request, render_template
 import pickle
 
 vector=pickle.load(open("Vectorizer.pkl",'rb'))
-model=pickle.load(open("finalized_model .pkl",'rb'))
+model=pickle.load(open("finalized_model.pkl",'rb'))
 
 app = Flask(__name__)
 
@@ -14,7 +14,7 @@ def home():
 def prediction():
     if request.method=="POST":
         news=str(request.form['news'])
-        predict=model.predict(vector.transform([news]))[0]
+        predict=model.predict(vector.transform([news]))
         print(predict)
 
         return render_template("prediction.html",prediction_text="News headline is -> {}".format(predict))
